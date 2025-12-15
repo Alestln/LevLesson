@@ -46,8 +46,6 @@
                 {
                     count++;
                 }
-                
-                i /= 10;
             }
 
             Console.WriteLine($"Number {number} have {count} even digits.");
