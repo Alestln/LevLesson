@@ -1,4 +1,6 @@
-﻿namespace LevLesson
+﻿using System.Text.RegularExpressions;
+
+namespace LevLesson
 {
     internal class Program
     {
@@ -73,13 +75,33 @@
             {
                 Console.Write("Введите номер строки и столбца через пробел: ");
 
-                string input = Console.ReadLine().Trim();
-                string[] parts = input.Split(' ');
+                string input = Console.ReadLine();
+                
+                MatchCollection matches = Regex.Matches(input, @"\d+");
 
-                // Использовать или алгоритмическое решение или регулярные выражения для проверки формата ввода
+                if (matches.Count != 2)
+                {
+                    Console.WriteLine("Ошибка! Введите два числа.\n");
+                    continue;
+                }
+
+                int row = int.Parse(matches[0].Value);
+                int col = int.Parse(matches[1].Value);
+
+                if (row < 0 || row > cards.GetLength(0) || col < 0 || col > cards.GetLength(1))
+                {
+                    Console.WriteLine("Ошибка! Введенные числа выходят за пределы игрового поля.\n");
+                    continue;
+                }
+
+                if (cards[row - 1, col - 1].Revealed)
+                {
+                    Console.WriteLine("Эта карта уже открыта.");
+                    continue;
+                }
+
+                return (row - 1, col - 1);
             }
-
-            return (0, 0); // Заглушка для получения позиции карты от пользователя
         }
 
         static void DisplayBoard((int Value, bool Revealed)[,] cards)
@@ -103,13 +125,54 @@
             Console.WriteLine();
         }
 
+        static bool IsWin((int Value, bool Revealed)[,] cards, int founded)
+        {
+            return founded * 2 == cards.Length;
+        }
+
         static void Main(string[] args)
         {
             (int Rows, int Cols) size = /*GetFieldSize();*/(2, 3);
 
             (int Value, bool Revealed)[,] cards = InitializeCards(size.Rows, size.Cols);
 
-            (int Row, int Col) position = GetPosition(cards);
+            int founded = 0;
+
+            do
+            {
+                DisplayBoard(cards);
+
+                (int Row, int Col) firstPosition = GetPosition(cards);
+                cards[firstPosition.Row, firstPosition.Col].Revealed = true;
+
+                Console.Clear();
+                DisplayBoard(cards);
+
+                (int Row, int Col) secondPosition = GetPosition(cards);
+                cards[secondPosition.Row, secondPosition.Col].Revealed = true;
+
+                Console.Clear();
+                DisplayBoard(cards);
+
+                if (cards[firstPosition.Row, firstPosition.Col].Value != cards[secondPosition.Row, secondPosition.Col].Value)
+                {
+                    cards[firstPosition.Row, firstPosition.Col].Revealed = false;
+                    cards[secondPosition.Row, secondPosition.Col].Revealed = false;
+                }
+                else
+                {
+                    founded++;
+                }
+
+                if (!IsWin(cards, founded))
+                {
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                }
+            }
+            while (!IsWin(cards, founded));
+
+            Console.WriteLine("Поздравляем! Вы выиграли!");
         }
     }
 }
