@@ -4,7 +4,14 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Я не должен быть в ветке мастер.");
+            Test test = new Test();
+            /*Console.WriteLine(test.Array[0]);
+            test.Array[0] = 42;
+            Console.WriteLine(test.Array[0]);*/
+
+            /*Console.WriteLine(test.Admin.Name);
+            test.Admin.Name = "New Name";
+            Console.WriteLine(test.Admin.Name);*/
         }
     }
 }
