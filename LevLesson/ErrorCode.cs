@@ -1,6 +1,6 @@
 ﻿namespace LevLesson
 {
-    public enum ErrorCodes
+    public enum ErrorCode
     {
         None = 0,
         InvalidCapacity = 1,

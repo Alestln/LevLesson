@@ -32,7 +32,7 @@
             {
                 if (value < _count)
                 {
-                    throw new ArgumentException($"Вместимость не может быть меньше количества элементов списка. Код ошибки: {(int)ErrorCodes.CapacityLessThanCount}");
+                    throw new ArgumentException($"Вместимость не может быть меньше количества элементов списка. Код ошибки: {(int)ErrorCode.CapacityLessThanCount}");
                 }
 
                 if (value != _items.Length)
