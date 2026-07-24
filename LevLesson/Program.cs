@@ -4,24 +4,19 @@
     {
         static void Main(string[] args)
         {
-            Test test = new Test();
-        }
-    }
+            // ООП
+            // Инкапсуляция
 
-    public class Test
-    {
-        private int _count;
+            BankAccount account = new BankAccount();
+            account.Deposit(500);
+            Console.WriteLine(account.Balance);
 
-        public int Count => _count;
+            account.Withdraw(200);
+            Console.WriteLine(account.Balance);
 
-        public Test()
-        {
-            Method();   
-        }
-
-        public void Method()
-        {
-            Console.WriteLine("Hello");
+            // Домашнее задание
+            // 1) Доделать реализацию класса MyQueue.
+            // 2) Почитать про наследование.
         }
     }
 }
