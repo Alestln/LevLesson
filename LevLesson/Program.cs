@@ -13,6 +13,10 @@ namespace LevLesson
             // Console.WriteLine($"Enemy damage: {enemy.AttackDamage}");
             Console.WriteLine($"Orc damage: {orc.AttackDamage}");
             Console.WriteLine($"Dragon damage: {dragon.AttackDamage}");
+
+            // Домашнее задание:
+            // 1. Подробно в видеозаписи занятии я рассказывал что поправить в коде пред. домашки.
+            // 2. Почитать про такой тип данных, как Object.
         }
     }
 }
